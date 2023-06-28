@@ -39,5 +39,9 @@ Route::middleware('auth')->group(function () {
 Route::get('/import-game-user', [AttendanceController::class, 'importGameUser']);
 Route::get('/get-cookie', [AttendanceController::class, 'getCookie']);
 Route::get('/check-in', [AttendanceController::class, 'checkIn']);
+Route::get('/search-coin-info', [AttendanceController::class, 'searchCoinInfo']);
+Route::get('/get-gift', [AttendanceController::class, 'getGift']);
+Route::get('/search-code-info', [AttendanceController::class, 'searchCodeInfo']);
+Route::get('/save-code', [AttendanceController::class, 'saveCode']);
 
 require __DIR__.'/auth.php';

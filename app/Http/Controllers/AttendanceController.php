@@ -46,63 +46,76 @@ class AttendanceController extends Controller
 
     public function getCookie()
     {
-        $gameUser = GameUser::limit(5)->get();
-        dd($gameUser);
+        $gameUsers = GameUser::all();
 
-        $this->attendanceService->login($gameUser);
+        $this->attendanceService->loginWtihPool($gameUsers);
 
         return response()->json([
-            'message' => 'Login successful'
+            'message' => 'Get cookie successful'
+        ]);
+    }
+
+    public function searchCoinInfo()
+    {
+        $gameUsers = GameUser::all();
+
+        $this->attendanceService->searchCoinInfo($gameUsers);
+
+        return response()->json([
+            'message' => 'Search coin ifno successful'
+        ]);
+    }
+
+    // 一個換 600
+    // 一個換 400
+    public function getGift()
+    {
+        // $gameUsers = GameUser::where('coin_info', '>=', 600)->get();
+        $gameUsers = GameUser::where('coin_info', '>=', 400)->where('coin_info', '<', 500)->get();
+
+        $this->attendanceService->getGift($gameUsers);
+
+        return response()->json([
+            'message' => 'Get gift successful'
+        ]);
+    }
+
+    public function searchCodeInfo()
+    {
+        $gameUsers = GameUser::all();
+
+        $this->attendanceService->searchCodeInfo($gameUsers);
+
+        return response()->json([
+            'message' => 'Search code info successful'
+        ]);
+    }
+
+    public function saveCode()
+    {
+        $gameUsers = GameUser::where('id', '>=', 1)->where('id', '<=', 100)->get();
+
+        $codes = $gameUsers->filter(function($item) {
+            if (count(json_decode($item->code_info)) > 0) {
+                return true;
+            }
+        })->map(function($item) {
+            return $item->code_info;
+        });
+
+        return response()->json([
+            'message' => 'Save code successful',
         ]);
     }
 
     public function checkIn()
     {
-        $checkInResponse = $this->attendanceService->checkIn();
+        $gameUsers = GameUser::all();
+
+        $this->attendanceService->checkIn($gameUsers);
 
         return response()->json([
-            'message' => 'Check in successful',
-            'response' => $checkInResponse
+            'message' => 'Check in successful'
         ]);
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

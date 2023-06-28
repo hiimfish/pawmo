@@ -15,6 +15,10 @@ class GameUser extends Model
         'password',
     ];
 
+    protected $casts = [
+        'coin_info' => 'integer',
+    ];
+
     public function cookie()
     {
         return $this->hasOne(Cookie::class);
