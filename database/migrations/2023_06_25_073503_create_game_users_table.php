@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
             $table->text('cookies')->nullable();
-            $table->string('coin_info')->nullable();
+            $table->decimal('coin_info', 10, 0)->nullable();
             $table->json('code_info')->nullable();
             $table->timestamps();
         });
