@@ -66,12 +66,9 @@ class AttendanceController extends Controller
         ]);
     }
 
-    // 一個換 600
-    // 一個換 400
     public function getGift()
     {
-        // $gameUsers = GameUser::where('coin_info', '>=', 600)->get();
-        $gameUsers = GameUser::where('coin_info', '>=', 400)->where('coin_info', '<', 500)->get();
+        $gameUsers = GameUser::all();
 
         $this->attendanceService->getGift($gameUsers);
 
@@ -93,7 +90,7 @@ class AttendanceController extends Controller
 
     public function saveCode()
     {
-        $gameUsers = GameUser::where('id', '>=', 1)->where('id', '<=', 100)->get();
+        $gameUsers = GameUser::all();
 
         $codes = $gameUsers->filter(function($item) {
             if (count(json_decode($item->code_info)) > 0) {
