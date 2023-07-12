@@ -47,7 +47,7 @@ class AttendanceService
 
     public function login(GameUser $gameUser)
     {
-        $response = $this->client->post('https://passport.icantw.com/login.php', [
+        $response = $this->client->post(env('LOGIN_API_URL'), [
             'form_params' => [
                 'LoginForm[username]' => $gameUser->username,
                 'LoginForm[password]' => $gameUser->password,
@@ -68,7 +68,7 @@ class AttendanceService
         $client = new Client;
 
         $requests = function ($users) use ($client) {
-            $uri = 'https://passport.icantw.com/login.php';
+            $uri = env('LOGIN_API_URL');
 
             foreach ($users as $user) {
                 yield function() use ($client, $uri, $user) {
@@ -112,7 +112,7 @@ class AttendanceService
         $client = new Client;
 
         $requests = function ($users) use ($client) {
-            $uri = 'https://www.icantw.com/event/2023/DragonBoatFestival/SearchcoinlInfo';
+            $uri = env('SEARCH_COIN_INFO_API_URL');
 
             foreach ($users as $user) {
                 yield function() use ($client, $uri, $user) {
@@ -144,7 +144,7 @@ class AttendanceService
         $client = new Client;
 
         $requests = function ($users) use ($client) {
-            $uri = 'https://www.icantw.com/event/2023/DragonBoatFestival/GetGiftInfo';
+            $uri = env('GET_GIFT_API_URL');
 
             foreach ($users as $user) {
                 yield function() use ($client, $uri, $user) {
@@ -174,7 +174,7 @@ class AttendanceService
         $client = new Client;
 
         $requests = function ($users) use ($client) {
-            $uri = 'https://www.icantw.com/event/2023/DragonBoatFestival/SearchCodeInfo';
+            $uri = env('SEARCH_CODE_INFO_API_URL');
 
             foreach ($users as $user) {
                 yield function() use ($client, $uri, $user) {
@@ -204,7 +204,7 @@ class AttendanceService
         $client = new Client;
 
         $requests = function ($users) use ($client) {
-            $uri = 'https://www.icantw.com/event/2023/DragonBoatFestival/CheckIn';
+            $uri = env('CHECK_IN_API_URL');
 
             foreach ($users as $user) {
                 yield function() use ($client, $uri, $user) {
